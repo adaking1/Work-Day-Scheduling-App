@@ -2,9 +2,6 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-
-
-
 function pressSave() {
     var saveButton = $(".saveBtn");
     saveButton.on("click", function(){
@@ -18,11 +15,19 @@ function pressSave() {
     
 }
 
+// maybe add this to the chunk of code, not a function
+function init() {
+    $(".time-block").each(function() {
+        if (localStorage.getItem(this.id) !== null) {
+            this.children[1].textContent = localStorage.getItem(this.id);
+        }
+    })
+}
 
 $(document).ready(function() {
-    
-    pressSave();
 
+    pressSave();
+    init();
 
     var currentHour = parseInt(dayjs().format("H"));
 
@@ -42,10 +47,21 @@ $(document).ready(function() {
             $(this).addClass("present");
             $(this).removeClass("future");
         }
+
+
     });
 
     
 });
+
+// need to make it so the calendar is cleared at the start of the next day
+// need to put the current date in the header
+
+
+
+
+
+
 // $(function () {
 //     // TODO: Add a listener for click events on the save button. This code should
 //     // use the id in the containing time-block as a key to save the user input in
