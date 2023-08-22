@@ -24,20 +24,44 @@ function init() {
     })
 }
 
+function dateSet() {
+    var date = dayjs().format("dddd, MMM D, YYYY");
+    var day = dayjs().format("D");
+    var suffix = "";
+
+    if ((day.slice(-1) == 1) && (day.slice(0,1) !== 1)) {
+        suffix = "st";
+    }
+    else if ((day.slice(-1) == 2) && (day.slice(0,1) !== 1)) {
+        suffix = "nd";
+    }
+    else if ((day.slice(-1) == 3) && (day.slice(0,1) !== 1)) {
+        suffix = "rd";
+    }
+    else {
+        suffix = "th";
+    }
+
+    $("#currentDay").text(dayjs().format("dddd, MMM D"));
+    $("#currentDay").append(suffix);
+    $("#currentDay").append(dayjs().format(", YYYY"));
+
+}
+
 $(document).ready(function() {
+    var currentHour = parseInt(dayjs().format("H"));
 
     pressSave();
     init();
-
-    var currentHour = parseInt(dayjs().format("H"));
+    dateSet();
+    
 
     $(".time-block").each(function() {
         var time = parseInt(this.id.slice(5));
 
         if (time > currentHour) {
             $(this).addClass("future");
-            console.log(time>currentHour);
-            console.log(currentHour);
+            
         }
         else if (time < currentHour) {
             $(this).addClass("past")
@@ -55,10 +79,6 @@ $(document).ready(function() {
 });
 
 // need to make it so the calendar is cleared at the start of the next day
-// need to put the current date in the header
-
-
-
 
 
 
