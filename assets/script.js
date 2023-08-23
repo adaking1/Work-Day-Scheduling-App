@@ -26,8 +26,12 @@ function textSet() {
 
 // this function sets the date in the header
 // it also sets the day in local storage so when the day changes, the local storage clears. The calendar is clear for each new day.
+// it tracks the changes of day, month, and year,so if someone doesn't reload the page after exactly a month or exactly a year, 
+// the page knows it's actually a different day, even if it has the same day number, or the same date of a different year
 function dateSet() {
     var day = dayjs().format("D");
+    var month = dayjs().format("MMM");
+    var year = dayjs().format("YYYY");
     var suffix = "";
 
     if ((day.slice(-1) == 1) && (day.slice(0,1) !== 1)) {
@@ -47,10 +51,12 @@ function dateSet() {
     $("#currentDay").append(suffix);
     $("#currentDay").append(dayjs().format(", YYYY"));
 
-    
-    if (localStorage.getItem("day") !== day) {
+    console.log(year);
+    if ((localStorage.getItem("day") !== day) || (localStorage.getItem("month") !== month) || (localStorage.getItem("year") !== year)){
         localStorage.clear();
         localStorage.setItem("day", day);
+        localStorage.setItem("month", month);
+        localStorage.setItem("year", year);
 }
 
 }
