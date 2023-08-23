@@ -15,9 +15,14 @@ function pressSave() {
     
 }
 
-// maybe add this to the chunk of code, not a function
-function init() {
+function textSet() {
     $(".time-block").each(function() {
+        console.log($("#currentDay").text().slice(-10,-8));
+        console.log(dayjs().format("D"));
+        if ($("#currentDay").text().slice(-10,-8) !== dayjs().format("D")) {
+            localStorage.removeItem(this.id);
+        }
+
         if (localStorage.getItem(this.id) !== null) {
             this.children[1].textContent = localStorage.getItem(this.id);
         }
@@ -25,7 +30,6 @@ function init() {
 }
 
 function dateSet() {
-    var date = dayjs().format("dddd, MMM D, YYYY");
     var day = dayjs().format("D");
     var suffix = "";
 
@@ -46,15 +50,11 @@ function dateSet() {
     $("#currentDay").append(suffix);
     $("#currentDay").append(dayjs().format(", YYYY"));
 
+
 }
 
-$(document).ready(function() {
+function timeBlockSet () {
     var currentHour = parseInt(dayjs().format("H"));
-
-    pressSave();
-    init();
-    dateSet();
-    
 
     $(".time-block").each(function() {
         var time = parseInt(this.id.slice(5));
@@ -74,13 +74,17 @@ $(document).ready(function() {
 
 
     });
+}
+
+$(document).ready(function() {
+
+    pressSave();
+    dateSet();
+    timeBlockSet();
+    textSet();
 
     
 });
-
-// need to make it so the calendar is cleared at the start of the next day
-
-
 
 // $(function () {
 //     // TODO: Add a listener for click events on the save button. This code should
