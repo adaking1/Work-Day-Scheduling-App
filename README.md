@@ -1,8 +1,10 @@
 # Work-Day-Scheduling-App
 
+![image](https://github.com/adaking1/Work-Day-Scheduling-App/assets/137830553/62b06ae7-3f61-4ea4-b6ff-43a24b8e384c)
 
 ## Link
 
+https://adaking1.github.io/Work-Day-Scheduling-App/
 
 ## Description
 
